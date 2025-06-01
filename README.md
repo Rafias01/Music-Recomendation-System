@@ -250,7 +250,8 @@ Bagian 'Relevant Found' mencantumkan kelima lagu tersebut, yang semuanya cocok d
 
 ## Kesimpulan
 ### 1. Menentukan top 10 Lagu dari Playlist "Global Top 50 | 2020 Hits"
-![image](https://github.com/user-attachments/assets/35823eeb-fb58-4ed9-967d-b601ecec4798)
+![image](https://github.com/user-attachments/assets/8faf12c8-e59d-467e-baaf-71352d8c8cbe)
+
 
 Playlist "Global Top 50 | 2020 Hits" terdiri dari lagu-lagu dengan tingkat popularitas yang sangat tinggi, dipimpin oleh "Dance Monkey" dari Tones and I sebagai lagu terpopuler. Skor popularitas yang mendekati sempurna pada seluruh lagu dalam daftar mencerminkan tingginya minat pendengar global dan tingginya frekuensi pemutaran lagu-lagu tersebut di Spotify sepanjang tahun 2020. Playlist ini secara jelas merepresentasikan tren musik populer dunia pada tahun tersebut.
 
@@ -260,7 +261,7 @@ Playlist "Global Top 50 | 2020 Hits" terdiri dari lagu-lagu dengan tingkat popul
 Analisis data menunjukkan bahwa genre pop merupakan genre dengan rata-rata popularitas tertinggi di Spotify, menandakan dominasi dan daya tariknya yang kuat di kalangan pendengar global. Diikuti oleh genre latin dan rap, yang juga menunjukkan tingkat popularitas yang tinggi dan pengaruh yang signifikan. Meskipun terdapat perbedaan skor, jarak antar rata-rata popularitas kelima genre teratas ini relatif kecil, mencerminkan preferensi musik yang beragam di antara pengguna Spotify. Hal ini menegaskan bahwa meskipun pop menjadi genre paling dominan, genre lain seperti latin, rap, rock, dan R&B tetap memiliki audiens yang kuat dan aktif.
 
 ### 3. Menentukan Korelasi antara Energy dan Popularitas Lagu
-![image](https://github.com/user-attachments/assets/6cf22574-b521-45bc-bc48-2ddc202ef0b7)
+![image](https://github.com/user-attachments/assets/77d7f4e8-dae1-410c-8772-6ee1bc4098a9)
 
 terdapat korelasi negatif yang sangat lemah antara tingkat energi sebuah lagu dan popularitasnya di Spotify, dengan nilai korelasi sebesar -0.11. Hal ini menunjukkan bahwa energi lagu bukanlah faktor yang signifikan dalam menentukan seberapa populer lagu tersebut. Visualisasi scatter plot dengan garis regresi yang datar juga memperkuat bahwa tidak ada hubungan linier yang kuat antara kedua variabel. Oleh karena itu, tingkat energi lagu tidak dapat dijadikan indikator utama untuk memprediksi popularitas di kalangan pendengar.
 
