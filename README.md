@@ -9,9 +9,9 @@ Fokus utama analisis adalah pada karakteristik lagu yang diwakili oleh fitur-fit
 
 ### Problem Statements
 Rumusan masalah dari masalah latar belakang diatas adalah:
-1. Apa saja top 10 Lagu dari Playlist "Global Top 50 | 2020 Hits"?
-2. Apa saja 5 Genre Lagu Teratas dengan Rata-rata memiliki Popularitas Tertinggi?
-3. Apakah ada korelasi Korelasi antara Energy dan Popularitas Lagu?
+1. Bagaimana cara mengidentifikasi 10 lagu dengan tingkat popularitas tertinggi dalam playlist "Global Top 50 | 2020 Hits" sebagai representasi lagu-lagu yang paling diminati secara global pada tahun 2020?
+2. Genre musik apa saja yang memiliki rata-rata popularitas tertinggi sehingga dapat mencerminkan preferensi umum pendengar terhadap jenis musik tertentu?
+3. Apakah terdapat hubungan antara karakteristik musik seperti tingkat energy dengan tingkat popularitas lagu?
 
 ### Goals
 Berdasarkan problem statements, berikut tujuan yang ingin dicapai pada proyek ini.
@@ -20,9 +20,9 @@ Berdasarkan problem statements, berikut tujuan yang ingin dicapai pada proyek in
 3. Menganalisis hubungan antara tingkat energi lagu dan popularitas untuk mengetahui apakah lagu yang lebih energik cenderung lebih populer.
 
 ### Solution Approach
-1. Data akan difilter berdasarkan nama playlist, lalu diurutkan berdasarkan nilai popularitas lagu secara menurun, dan diambil 10 lagu teratas sebagai hasil akhir.
-2. Data akan difilter berdasarkan nama playlist, lalu diurutkan berdasarkan nilai popularitas lagu secara menurun, dan diambil 10 lagu teratas sebagai hasil akhir.
-3. Menghitung koefisien korelasi Pearson antara kolom energy dan track_popularity, disertai dengan visualisasi scatter plot dan garis regresi untuk memperkuat interpretasi hubungan antara kedua variabel tersebut.
+1. Tahapan pertama dilakukan dengan memfilter data agar hanya mencakup lagu-lagu dalam playlist "Global Top 50 | 2020 Hits". Setelah itu, lagu-lagu tersebut disusun berdasarkan tingkat popularitas dari yang tertinggi hingga terendah. Dari hasil tersebut, dipilih 10 lagu teratas yang mencerminkan lagu-lagu paling populer di tingkat global selama tahun 2020.
+2. Untuk masing-masing genre, akan dihitung nilai dari nilai rata-rata. Setelah memperoleh rata-rata tersebut, kita urutkan genre berdasarkan nilai rata-rata popularitas dari yang tertinggi ke terendah, kemudian ambil lima genre teratas. Dengan cara ini, kita bisa dengan mudah mengetahui lima genre dengan rata-rata popularitas tertinggi, sehingga dapat memahami preferensi utama pendengar terhadap genre tertentu. 
+3. Dengan menggunakan scatter plot, setiap lagu direpresentasikan sebagai sebuah titik pada grafik dua dimensi, di mana sumbu horizontal menunjukkan nilai energi lagu dan sumbu vertikal menunjukkan nilai popularitasnya. Visualisasi ini memungkinkan kita untuk melihat pola atau tren secara langsung, seperti apakah titik-titik tersebut membentuk pola naik yang menunjukkan korelasi positif, pola datar yang menunjukkan tidak ada hubungan, atau bahkan pola turun yang menunjukkan korelasi negatif.
 
 ## Data Understanding
 Data yang digunakan untuk membuat sistem rekomendasi musik ini diambil dari platform Kaggle, yaitu [30000 Spotify Songs](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs?select=spotify_songs.csv).
@@ -184,18 +184,18 @@ Kode tersebut berfungsi untuk menghapus beberapa kolom yang dianggap tidak relev
 Setelah penghapusan, DataFrame yang bersih disimpan ke dalam variabel df_cleaned, dan hasilnya ditampilkan untuk melihat kolom-kolom yang tersisa. Tujuannya adalah menyederhanakan data agar hanya kolom penting yang digunakan untuk analisis.
 
 #### Melakukan Perubahan pada kolom Artist
-![image](https://github.com/user-attachments/assets/a8d8c8a2-d57f-49c4-94ef-6159ad07f5a7)
+![image](https://github.com/user-attachments/assets/125975c1-cf1f-4c5b-9c7e-b87610b6c4fb)
 
-Kode tersebut bertujuan untuk membersihkan data pada kolom track_artist, membuat identitas unik untuk setiap lagu, serta menggabungkan beberapa fitur menjadi satu kolom baru untuk keperluan analisis lebih lanjut. Fungsi clean_artist_string digunakan untuk membersihkan nilai pada kolom track_artist yang terkadang berbentuk string dari list. Fungsi ini memanfaatkan modul ast untuk mengubah string menjadi list Python yang sesungguhnya, lalu menggabungkan elemen-elemen dalam list tersebut menjadi satu string dengan pemisah koma. Hasil pembersihan ini disimpan ke dalam kolom baru bernama cleaned_artists.
+Kode Python tersebut digunakan untuk membersihkan dan mempersiapkan data musik dalam sebuah DataFrame. Pertama, fungsi clean_artist_string digunakan untuk membersihkan kolom 'track_artist', yang mungkin berisi string yang mewakili daftar artis. Fungsi ini mencoba mengubah string menjadi list Python menggunakan ast.literal_eval, lalu menggabungkan nama-nama artis tersebut menjadi satu string yang dipisahkan koma. Jika input sudah berupa list, langsung digabungkan; jika gagal, fungsi mengembalikan string asli. Hasil pembersihan disimpan dalam kolom baru bernama 'cleaned_artists'.
 
-Selanjutnya, kolom unique_song_key dibuat dengan menggabungkan nama artis yang telah dibersihkan (cleaned_artists) dengan judul lagu (track_name). Tujuan dari pembuatan kunci unik ini adalah untuk mengidentifikasi setiap lagu secara spesifik, sehingga duplikasi data dapat dihapus menggunakan fungsi drop_duplicates. Terakhir, kolom combined_features dibuat dengan menggabungkan beberapa informasi seperti cleaned_artists, playlist_genre, dan playlist_subgenre. Penggabungan fitur ini akan berguna dalam tahap pemodelan, seperti dalam pembuatan sistem rekomendasi lagu berbasis konten. Keseluruhan proses ini memastikan bahwa data yang digunakan bersih, bebas duplikasi, dan telah dikondisikan untuk analisis lanjutan.
+Selanjutnya, dibuat kolom 'unique_song_key' yang merupakan gabungan dari 'cleaned_artists' dan 'track_name', bertujuan untuk mengidentifikasi lagu secara unik. Duplikat berdasarkan 'unique_song_key' kemudian dihapus dengan menyimpan entri pertama dari setiap lagu unik. Terakhir, dibuat kolom 'combined_features', yaitu gabungan dari kolom 'cleaned_artists' dan 'playlist_genre'. Nilai kosong atau NaN digantikan dengan string kosong untuk memastikan gabungan berjalan lancar. 
 
 #### Standarisasi
 ![image](https://github.com/user-attachments/assets/f8a5d8dd-12d2-4705-95e7-ec820185de54)
 
 Kode tersebut menunjukkan proses standardisasi fitur numerik dalam sebuah DataFrame menggunakan StandardScaler dari pustaka sklearn.preprocessing. Pertama, ditentukan daftar fitur numerik yang ingin dinormalisasi, seperti danceability, energy, loudness, dan lainnya. Selanjutnya, fitur-fitur tersebut disalin ke dalam df_features untuk memastikan kolom yang diproses tersedia dan tidak mempengaruhi data asli. Kemudian, StandardScaler digunakan untuk menghitung rata-rata dan standar deviasi dari setiap fitur, lalu mentransformasinya agar memiliki mean = 0 dan standar deviasi = 1. Hasil transformasi ini disimpan dalam DataFrame baru X_scaled_df, dengan mempertahankan indeks berdasarkan kolom unique_song_key dan nama kolom tetap sesuai fitur aslinya. Proses ini sangat penting agar model machine learning dapat bekerja secara optimal dengan skala data yang seragam.
 
-## Modelling
+## Modelling dan Inference
 ### Menerapkan Cosine Similarity
 ![image](https://github.com/user-attachments/assets/966332e4-8fe1-47ec-9136-7da3dc705ef9)
 
@@ -216,13 +216,13 @@ Kode tersebut menghitung matriks cosine similarity antara data lagu yang telah d
   Output : 
   ![image](https://github.com/user-attachments/assets/a572bbbd-6a67-43fe-b39e-d98c87e28f5f)
 
-
-  ## Evaluation dan Inference
-  ### Inference 
+   ### Inference 
   ![image](https://github.com/user-attachments/assets/a3198603-958c-4136-9d32-d9087ab92660)
 
 Rekomendasi lagu yang mirip dengan "Alex & Sierra - Little Do You Know" menunjukkan daftar lima lagu dengan tingkat kemiripan yang tinggi, yaitu sebesar 0.98. Beberapa di antaranya adalah "Dean Lewis - Waves - Guitar Acoustic", "Ben Platt - In Case You Don't Live Forever", dan "Grace VanderWaal - I Don't Know My Name", yang semuanya dikenal dengan lirik menyentuh dan vokal yang ekspresif. Hal ini menunjukkan bahwa sistem rekomendasi bekerja dengan mempertimbangkan kesamaan dalam mood, genre, serta kualitas vokal dan instrumental.
 
+
+  ## Evaluation 
 ![image](https://github.com/user-attachments/assets/09d832b0-1399-4336-8de9-0836d15f074a)
 
 Fungsi evaluate_recommendation_metrics digunakan untuk menilai kualitas rekomendasi lagu berdasarkan sebuah lagu kueri (query_song) dengan membandingkan hasil rekomendasi dari fungsi recommend_by_identifier terhadap data kebenaran (ground truth). Fungsi ini mengambil daftar lagu yang direkomendasikan sebanyak k teratas, lalu menormalisasi judul lagu pada ground truth dan hasil rekomendasi agar mudah dibandingkan. Selanjutnya, fungsi menghitung metrik evaluasi yaitu precision, recall, dan F1-score untuk mengukur seberapa banyak lagu yang direkomendasikan sesuai dengan ground truth. Hasil evaluasi ini kemudian dikembalikan dalam bentuk dictionary yang juga menyertakan daftar lagu yang relevan ditemukan dalam rekomendasi.
